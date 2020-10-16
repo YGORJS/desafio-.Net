@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using YgorTeste.BLL;
 using YgorTeste.Context;
 using YgorTeste.Mensagem;
 using YgorTeste.Models;
@@ -93,6 +94,7 @@ namespace YgorTeste.Controllers
         public async Task<IActionResult> PostUsuario([FromBody] Usuario usuario)
         {
             MensagemUsuario msgusu = new MensagemUsuario();
+            UsuarioBLL usubll = new UsuarioBLL();
 
 
             if (!ModelState.IsValid)
@@ -100,9 +102,9 @@ namespace YgorTeste.Controllers
                 return BadRequest(ModelState);
             }
 
-            var existe = _context.Usuarios.Where(a => a.Email.Equals(usuario.Email));
+            bool existe = usubll.EmailExiste(usuario.Email,_context);
 
-            if(existe.Count() > 0)
+            if(existe)
             {
                 msgusu.Msg = "E-mail already exists";
                 return Ok(msgusu);
