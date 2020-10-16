@@ -13,8 +13,21 @@ namespace YgorTeste.Models
         [Key, Column(Order = 0)]
         public int Id { get; set; }
 
-        public string Nome { get; set; }
+        [Required(ErrorMessage = "Missing field")]
+        public string firstName { get; set; }
 
+        [Required(ErrorMessage = "Missing field")]
+        public string lastName { get; set; }
+
+        [Required(ErrorMessage = "Missing field")]     
         public string Email { get; set; }
+
+        [Required(ErrorMessage = "Missing field")]
+        [DataType(DataType.Password)]
+        public string password { get; set; }
+
+        public List<Fone> fone  { get; set; }
+
+
     }
 }

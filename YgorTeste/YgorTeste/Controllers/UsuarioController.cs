@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using YgorTeste.Context;
+using YgorTeste.Mensagem;
 using YgorTeste.Models;
 
 namespace YgorTeste.Controllers
@@ -31,7 +32,7 @@ namespace YgorTeste.Controllers
 
         // GET: api/Usuario/5
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetUsuario([FromRoute] string id)
+        public async Task<IActionResult> GetUsuario([FromRoute] int id)
         {
             if (!ModelState.IsValid)
             {
@@ -45,7 +46,10 @@ namespace YgorTeste.Controllers
                 return NotFound();
             }
 
-            return Ok(usuario);
+            MensagemUsuario msgusu = new MensagemUsuario();
+            msgusu.Msg = "Usuário Cadastrado com sucesso";
+
+            return Ok(msgusu);
         }
 
         // PUT: api/Usuario/5
@@ -85,22 +89,50 @@ namespace YgorTeste.Controllers
 
         // POST: api/Usuario
         [HttpPost]
+        [Route("signup")]
         public async Task<IActionResult> PostUsuario([FromBody] Usuario usuario)
         {
+            MensagemUsuario msgusu = new MensagemUsuario();
+
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
+            var existe = _context.Usuarios.Where(a => a.Email.Equals(usuario.Email));
+
+            if(existe.Count() > 0)
+            {
+                msgusu.Msg = "E-mail already exists";
+                return Ok(msgusu);
+            }
+
+
             _context.Usuarios.Add(usuario);
+
+
+            foreach (Fone fones in usuario.fone)
+            {
+                fones.usuarioid = usuario.Id;
+                _context.Fone.Add(fones);
+
+            }
+
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetUsuario", new { id = usuario.Id }, usuario);
+            msgusu.Msg = "Usuário Cadastrado com sucesso";
+
+            return Ok( msgusu);
         }
+
+
+
+
 
         // DELETE: api/Usuario/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteUsuario([FromRoute] string id)
+        public async Task<IActionResult> DeleteUsuario([FromRoute] int id)
         {
             if (!ModelState.IsValid)
             {

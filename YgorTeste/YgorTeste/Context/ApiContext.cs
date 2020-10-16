@@ -13,5 +13,6 @@ namespace YgorTeste.Context
         : base(options)
         { }
         public DbSet<Usuario> Usuarios { get; set; }
+        public DbSet<Fone> Fone { get; set; }
     }
 }
