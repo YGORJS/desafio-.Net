@@ -10,7 +10,6 @@ namespace YgorTeste.Mensagem
     {
 
         public string Msg { get; set; }
-        public string Codigo { get; set; }
-        public Usuario usuario { get; set; }
+     
     }
 }
