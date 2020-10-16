@@ -1,0 +1,13 @@
+C:\Users\ygor.johasson.silva\Documents\GitHub\desafio-.Net\YgorTeste\YgorTeste\bin\Debug\netcoreapp2.1\YgorTeste.deps.json
+C:\Users\ygor.johasson.silva\Documents\GitHub\desafio-.Net\YgorTeste\YgorTeste\bin\Debug\netcoreapp2.1\YgorTeste.runtimeconfig.json
+C:\Users\ygor.johasson.silva\Documents\GitHub\desafio-.Net\YgorTeste\YgorTeste\bin\Debug\netcoreapp2.1\YgorTeste.runtimeconfig.dev.json
+C:\Users\ygor.johasson.silva\Documents\GitHub\desafio-.Net\YgorTeste\YgorTeste\bin\Debug\netcoreapp2.1\YgorTeste.dll
+C:\Users\ygor.johasson.silva\Documents\GitHub\desafio-.Net\YgorTeste\YgorTeste\bin\Debug\netcoreapp2.1\YgorTeste.pdb
+C:\Users\ygor.johasson.silva\Documents\GitHub\desafio-.Net\YgorTeste\YgorTeste\obj\Debug\netcoreapp2.1\YgorTeste.csproj.CoreCompileInputs.cache
+C:\Users\ygor.johasson.silva\Documents\GitHub\desafio-.Net\YgorTeste\YgorTeste\obj\Debug\netcoreapp2.1\YgorTeste.RazorAssemblyInfo.cache
+C:\Users\ygor.johasson.silva\Documents\GitHub\desafio-.Net\YgorTeste\YgorTeste\obj\Debug\netcoreapp2.1\YgorTeste.RazorAssemblyInfo.cs
+C:\Users\ygor.johasson.silva\Documents\GitHub\desafio-.Net\YgorTeste\YgorTeste\obj\Debug\netcoreapp2.1\YgorTeste.AssemblyInfoInputs.cache
+C:\Users\ygor.johasson.silva\Documents\GitHub\desafio-.Net\YgorTeste\YgorTeste\obj\Debug\netcoreapp2.1\YgorTeste.AssemblyInfo.cs
+C:\Users\ygor.johasson.silva\Documents\GitHub\desafio-.Net\YgorTeste\YgorTeste\obj\Debug\netcoreapp2.1\YgorTeste.RazorTargetAssemblyInfo.cache
+C:\Users\ygor.johasson.silva\Documents\GitHub\desafio-.Net\YgorTeste\YgorTeste\obj\Debug\netcoreapp2.1\YgorTeste.dll
+C:\Users\ygor.johasson.silva\Documents\GitHub\desafio-.Net\YgorTeste\YgorTeste\obj\Debug\netcoreapp2.1\YgorTeste.pdb
