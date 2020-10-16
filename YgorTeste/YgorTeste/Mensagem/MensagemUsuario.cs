@@ -12,4 +12,11 @@ namespace YgorTeste.Mensagem
         public string Msg { get; set; }
      
     }
+
+    public class MensagemUsuarioObjeto
+    {
+        public string Msg { get; set; }
+        public Usuario usuario { get; set; }
+
+    }
 }

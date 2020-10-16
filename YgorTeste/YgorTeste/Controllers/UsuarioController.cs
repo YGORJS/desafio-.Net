@@ -157,5 +157,26 @@ namespace YgorTeste.Controllers
         {
             return _context.Usuarios.Any(e => e.Id == id);
         }
+
+        // GET: api/Usuario/5        
+        [HttpPost]
+        [Route("Signin")]
+        public async Task<IActionResult> Signin([FromRoute] string password, string email)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var usuario =  _context.Usuarios.Where(a=>a.Email.Equals(email) && a.password.Equals(password)).ToList() ;
+
+            if (usuario == null)
+            {
+                return NotFound();
+            }
+
+
+            return CreatedAtAction("GetUsuario", new { id = usuario.FirstOrDefault().Id }, usuario.FirstOrDefault()); ;
+        }
     }
 }
