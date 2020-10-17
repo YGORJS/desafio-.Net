@@ -6,7 +6,7 @@ using YgorTeste.Context;
 using Microsoft.EntityFrameworkCore;
 using YgorTeste.DAL;
 using YgorTeste.Context;
-
+using YgorTeste.Models;
 
 namespace YgorTeste.BLL
 {
@@ -25,6 +25,16 @@ namespace YgorTeste.BLL
                 return false;
             
         }
+
+        public Usuario ObterUsuario( string email, string password  , ApiContext context) {
+
+            UsuarioDAL usuDal = new UsuarioDAL(context);
+
+            Usuario usu = usuDal.ObterUsuario(email, password);
+
+            return usu;
+        }
+
     }
 
 }

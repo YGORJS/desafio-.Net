@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using YgorTeste.BLL;
 using YgorTeste.Context;
 using YgorTeste.Mensagem;
 using YgorTeste.Models;
@@ -95,26 +96,31 @@ namespace YgorTeste.Controllers
                 return BadRequest(ModelState);
             }
 
-            var usuario = _context.Usuarios.Where(a => a.Email.Equals(loginUsuario.Email) && a.password.Equals(loginUsuario.password)).ToList();
-            if (usuario.Count() < 1)
+            UsuarioBLL usuBll = new UsuarioBLL();
+            FoneBLL foneBll = new FoneBLL();
+
+            var usuario = usuBll.ObterUsuario(loginUsuario.Email, loginUsuario.password, _context);
+
+            if (usuario == null)
             {
                 MensagemUsuario msg = new MensagemUsuario();
                 msg.Msg = "Invalid e-mail or password";
                 return Ok(msg);
             }
-            var fones =  _context.Fone.Where(a => a.usuarioid == usuario.FirstOrDefault().Id).ToList() ;
-            usuario.FirstOrDefault().fone.Clear();
+            var fones = foneBll.OterFonesUsuario(usuario.Id, _context)   ;
+
+            usuario.fone.Clear();
 
             foreach (Fone foneusu in fones)
             {
-                usuario.FirstOrDefault().fone.Add(foneusu);
+                usuario.fone.Add(foneusu);
             }
                      
             
 
             MensagemUsuarioObjeto msgusu = new MensagemUsuarioObjeto();
             msgusu.Msg = "Login realizado com sucesso";
-            msgusu.usuario = usuario.FirstOrDefault();
+            msgusu.usuario = usuario;
 
             return Ok(msgusu); 
         }

@@ -24,6 +24,13 @@ namespace YgorTeste.DAL
             return existe;
         }
 
+        public Usuario ObterUsuario(string email, string password)
+        {
+            Usuario usuario  = _context.Usuarios.Where(a => a.Email.Equals(email) && a.password.Equals(password)).FirstOrDefault();
+
+            return usuario;
+        }
+
 
     }
 }
