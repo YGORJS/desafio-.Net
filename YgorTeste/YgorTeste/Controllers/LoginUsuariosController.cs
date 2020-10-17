@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -91,38 +92,53 @@ namespace YgorTeste.Controllers
         public async Task<IActionResult> PostLoginUsuario([FromBody] LoginUsuario loginUsuario)
         {
 
-            if (!ModelState.IsValid)
+            try
             {
-                return BadRequest(ModelState);
+          
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
+
+                UsuarioBLL usuBll = new UsuarioBLL();
+                FoneBLL foneBll = new FoneBLL();
+
+                var usuario = usuBll.ObterUsuario(loginUsuario.Email, loginUsuario.password, _context);
+
+                if (usuario == null)
+                {
+                    MensagemUsuario msg = new MensagemUsuario();
+                    msg.Msg = "Invalid e-mail or password";
+                    msg.Codigo = (int)HttpStatusCode.NotFound;
+                    return Ok(msg);
+                }
+                var fones = foneBll.OterFonesUsuario(usuario.Id, _context);
+
+                usuario.fone.Clear();
+
+                foreach (Fone foneusu in fones)
+                {
+                    usuario.fone.Add(foneusu);
+                }
+
+
+
+                MensagemUsuarioObjeto msgusu = new MensagemUsuarioObjeto();
+                msgusu.Msg = "Login realizado com sucesso";
+                msgusu.Codigo = (int)HttpStatusCode.OK;
+                msgusu.usuario = usuario;
+
+                return Ok(msgusu);
+
+            }catch(Exception e)
+            {
+                MensagemUsuario msgerro = new MensagemUsuario();
+                msgerro.Msg = e.Message;
+                msgerro.Codigo = (int) HttpStatusCode.NotFound; 
+                return Ok(msgerro);
             }
 
-            UsuarioBLL usuBll = new UsuarioBLL();
-            FoneBLL foneBll = new FoneBLL();
 
-            var usuario = usuBll.ObterUsuario(loginUsuario.Email, loginUsuario.password, _context);
-
-            if (usuario == null)
-            {
-                MensagemUsuario msg = new MensagemUsuario();
-                msg.Msg = "Invalid e-mail or password";
-                return Ok(msg);
-            }
-            var fones = foneBll.OterFonesUsuario(usuario.Id, _context)   ;
-
-            usuario.fone.Clear();
-
-            foreach (Fone foneusu in fones)
-            {
-                usuario.fone.Add(foneusu);
-            }
-                     
-            
-
-            MensagemUsuarioObjeto msgusu = new MensagemUsuarioObjeto();
-            msgusu.Msg = "Login realizado com sucesso";
-            msgusu.usuario = usuario;
-
-            return Ok(msgusu); 
         }
 
         // DELETE: api/LoginUsuarios/5

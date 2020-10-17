@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -93,39 +94,52 @@ namespace YgorTeste.Controllers
         [Route("signup")]
         public async Task<IActionResult> PostUsuario([FromBody] Usuario usuario)
         {
-            MensagemUsuario msgusu = new MensagemUsuario();
-            UsuarioBLL usubll = new UsuarioBLL();
 
-
-            if (!ModelState.IsValid)
+            try
             {
-                return BadRequest(ModelState);
-            }
 
-            bool existe = usubll.EmailExiste(usuario.Email,_context);
+                MensagemUsuario msgusu = new MensagemUsuario();
+                UsuarioBLL usubll = new UsuarioBLL();
 
-            if(existe)
-            {
-                msgusu.Msg = "E-mail already exists";
+
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
+
+                bool existe = usubll.EmailExiste(usuario.Email, _context);
+
+                if (existe)
+                {
+                    msgusu.Msg = "E-mail already exists";
+                    msgusu.Codigo = (int)HttpStatusCode.NonAuthoritativeInformation;
+                    return Ok(msgusu);
+                }
+
+
+                _context.Usuarios.Add(usuario);
+
+
+                foreach (Fone fones in usuario.fone)
+                {
+                    fones.usuarioid = usuario.Id;
+                    _context.Fone.Add(fones);
+
+                }
+
+                await _context.SaveChangesAsync();
+
+                msgusu.Msg = "Usuário Cadastrado com sucesso";
+                msgusu.Codigo = (int)HttpStatusCode.OK;
+
                 return Ok(msgusu);
-            }
-
-
-            _context.Usuarios.Add(usuario);
-
-
-            foreach (Fone fones in usuario.fone)
+            }catch(Exception e)
             {
-                fones.usuarioid = usuario.Id;
-                _context.Fone.Add(fones);
-
+                MensagemUsuario msgErro = new MensagemUsuario();
+                msgErro.Msg = e.Message;
+                msgErro.Codigo = (int)HttpStatusCode.NotFound;
+                return Ok();
             }
-
-            await _context.SaveChangesAsync();
-
-            msgusu.Msg = "Usuário Cadastrado com sucesso";
-
-            return Ok( msgusu);
         }
 
 
