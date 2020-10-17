@@ -107,7 +107,7 @@ namespace YgorTeste.Controllers
                     return BadRequest(ModelState);
                 }
 
-                bool existe = usubll.EmailExiste(usuario.Email, _context);
+                bool existe = usubll.EmailExiste(usuario.email, _context);
 
                 if (existe)
                 {
@@ -116,7 +116,7 @@ namespace YgorTeste.Controllers
                     return Ok(msgusu);
                 }
 
-
+                usuario.createdAt = DateTime.Now;
                 _context.Usuarios.Add(usuario);
 
 
@@ -182,7 +182,7 @@ namespace YgorTeste.Controllers
                 return BadRequest(ModelState);
             }
 
-            var usuario =  _context.Usuarios.Where(a=>a.Email.Equals(email) && a.password.Equals(password)).ToList() ;
+            var usuario =  _context.Usuarios.Where(a=>a.email.Equals(email) && a.password.Equals(password)).ToList() ;
 
             if (usuario == null)
             {

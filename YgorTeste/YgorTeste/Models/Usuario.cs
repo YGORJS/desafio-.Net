@@ -21,13 +21,18 @@ namespace YgorTeste.Models
 
         [Required(ErrorMessage = "Missing field")]
         [RegularExpression(".+\\@.+\\..+", ErrorMessage = "Invalid fields")]
-        public string Email { get; set; }
+        public string email { get; set; }
 
         [Required(ErrorMessage = "Missing field")]
         [DataType(DataType.Password)]
         public string password { get; set; }
 
         public List<Fone> fone  { get; set; }
+
+        public DateTime createdAt { get; set; }
+
+        public DateTime last_login  { get; set; }
+
 
 
     }

@@ -122,6 +122,7 @@ namespace YgorTeste.Controllers
                 }
 
 
+                usuBll.AtualizarUsuario(usuario, _context);
 
                 MensagemUsuarioObjeto msgusu = new MensagemUsuarioObjeto();
                 msgusu.Msg = "Login realizado com sucesso";

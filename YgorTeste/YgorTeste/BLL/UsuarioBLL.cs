@@ -35,6 +35,14 @@ namespace YgorTeste.BLL
             return usu;
         }
 
+        public bool AtualizarUsuario(Usuario usuario, ApiContext context)
+        {
+              usuario.last_login = DateTime.Now;
+                UsuarioDAL usuDal = new UsuarioDAL(context);
+              return  usuDal.AtualizarUsuario(usuario);      
+          
+        } 
+
     }
 
 }
