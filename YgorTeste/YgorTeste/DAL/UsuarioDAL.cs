@@ -8,7 +8,7 @@ using YgorTeste.Models;
 
 namespace YgorTeste.DAL
 {
-    public class UsuarioDAL
+    public class UsuarioDAL: IUsuarioDAL
     {
         private readonly ApiContext _context;
 
@@ -26,14 +26,11 @@ namespace YgorTeste.DAL
         }
 
         public  bool AtualizarUsuario(Usuario usuario)
-        {
-            
+        {            
             try
             {
-
                 if (!UsuarioExists(usuario.Id))
                     return false;
-
 
                 _context.Entry(usuario).State = EntityState.Modified;
                 _context.SaveChangesAsync();
@@ -45,7 +42,7 @@ namespace YgorTeste.DAL
             }
         }
 
-        private bool UsuarioExists(int id)
+        public bool UsuarioExists(int id)
         {
             return _context.Usuarios.Any(e => e.Id == id);
         }

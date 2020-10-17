@@ -7,7 +7,7 @@ using YgorTeste.Models;
 
 namespace YgorTeste.DAL
 {
-    public class FoneDAL
+    public class FoneDAL : IFoneDAL
     {
         private readonly ApiContext _context;
 

@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using YgorTeste.BLL;
 using YgorTeste.Context;
+using YgorTeste.DAL;
 using YgorTeste.Mensagem;
 using YgorTeste.Models;
 
@@ -99,7 +100,7 @@ namespace YgorTeste.Controllers
             {
 
                 MensagemUsuario msgusu = new MensagemUsuario();
-                UsuarioBLL usubll = new UsuarioBLL();
+                UsuarioBLL usubll = new UsuarioBLL(new UsuarioDAL(_context));
 
 
                 if (!ModelState.IsValid)
@@ -107,7 +108,7 @@ namespace YgorTeste.Controllers
                     return BadRequest(ModelState);
                 }
 
-                bool existe = usubll.EmailExiste(usuario.email, _context);
+                bool existe = usubll.EmailExiste(usuario.email);
 
                 if (existe)
                 {

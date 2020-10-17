@@ -10,11 +10,17 @@ namespace YgorTeste.BLL
 {
     public class FoneBLL
     {
-        public List<Fone> OterFonesUsuario( int UsuarioId  , ApiContext context)
-        {
-            FoneDAL FoneDAL = new FoneDAL(context);
+        private readonly IFoneDAL _foneDal;
 
-            List<Fone> Fones = FoneDAL.ObterFonesUsuario(UsuarioId);
+        public FoneBLL( IFoneDAL foneDal)
+        {
+            _foneDal = foneDal;
+        }
+
+        public List<Fone> OterFonesUsuario( int UsuarioId)
+        {
+
+            List<Fone> Fones = _foneDal.ObterFonesUsuario(UsuarioId);
 
             return Fones;
 

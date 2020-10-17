@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using YgorTeste.BLL;
 using YgorTeste.Context;
+using YgorTeste.DAL;
 using YgorTeste.Mensagem;
 using YgorTeste.Models;
 
@@ -100,10 +101,10 @@ namespace YgorTeste.Controllers
                     return BadRequest(ModelState);
                 }
 
-                UsuarioBLL usuBll = new UsuarioBLL();
-                FoneBLL foneBll = new FoneBLL();
+                UsuarioBLL usuBll = new UsuarioBLL(new UsuarioDAL(_context));
+                FoneBLL foneBll = new FoneBLL(new FoneDAL(_context));
 
-                var usuario = usuBll.ObterUsuario(loginUsuario.Email, loginUsuario.password, _context);
+                var usuario = usuBll.ObterUsuario(loginUsuario.Email, loginUsuario.password);
 
                 if (usuario == null)
                 {
@@ -112,7 +113,7 @@ namespace YgorTeste.Controllers
                     msg.Codigo = (int)HttpStatusCode.NotFound;
                     return Ok(msg);
                 }
-                var fones = foneBll.OterFonesUsuario(usuario.Id, _context);
+                var fones = foneBll.OterFonesUsuario(usuario.Id);
 
                 usuario.fone.Clear();
 
@@ -122,7 +123,7 @@ namespace YgorTeste.Controllers
                 }
 
 
-                usuBll.AtualizarUsuario(usuario, _context);
+                usuBll.AtualizarUsuario(usuario);
 
                 MensagemUsuarioObjeto msgusu = new MensagemUsuarioObjeto();
                 msgusu.Msg = "Login realizado com sucesso";

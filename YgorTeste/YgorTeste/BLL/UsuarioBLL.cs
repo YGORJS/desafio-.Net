@@ -12,12 +12,19 @@ namespace YgorTeste.BLL
 {
     public class UsuarioBLL
     {
+        private readonly IUsuarioDAL _usuarioDAL ;
 
-        public bool EmailExiste(string email, ApiContext context)
+
+        public UsuarioBLL(IUsuarioDAL usuarioDAL)
         {
-            UsuarioDAL usuDAL = new UsuarioDAL(context);
+            _usuarioDAL = usuarioDAL;
+        }
 
-            var existe = usuDAL.EmailExiste(email);
+
+        public bool EmailExiste(string email)
+        {
+
+            var existe = _usuarioDAL.EmailExiste(email);
 
             if (existe.Count() > 0)
                 return true;
@@ -26,20 +33,17 @@ namespace YgorTeste.BLL
             
         }
 
-        public Usuario ObterUsuario( string email, string password  , ApiContext context) {
+        public Usuario ObterUsuario( string email, string password) {
 
-            UsuarioDAL usuDal = new UsuarioDAL(context);
-
-            Usuario usu = usuDal.ObterUsuario(email, password);
+            Usuario usu = _usuarioDAL.ObterUsuario(email, password);
 
             return usu;
         }
 
-        public bool AtualizarUsuario(Usuario usuario, ApiContext context)
+        public bool AtualizarUsuario(Usuario usuario)
         {
               usuario.last_login = DateTime.Now;
-                UsuarioDAL usuDal = new UsuarioDAL(context);
-              return  usuDal.AtualizarUsuario(usuario);      
+              return  _usuarioDAL.AtualizarUsuario(usuario);      
           
         } 
 
