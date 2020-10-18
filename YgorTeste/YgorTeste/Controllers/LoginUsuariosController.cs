@@ -5,13 +5,11 @@ using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using YgorTeste.BLL;
 using YgorTeste.Context;
 using YgorTeste.DAL;
-using YgorTeste.Mensagem;
 using YgorTeste.Models;
 
 namespace YgorTeste.Controllers
@@ -109,12 +107,10 @@ namespace YgorTeste.Controllers
                 var usuario = usuBll.ObterUsuario(loginUsuario.Email, loginUsuario.password);
 
                 if (usuario == null)
-                {
-                    MensagemUsuario msg = new MensagemUsuario();
-                    msg.Msg = "Invalid e-mail or password";
-                    msg.Codigo = (int)HttpStatusCode.NotFound;
-                    return Ok(msg);
+                {                    
+                    return NotFound(new { message = "Invalid e-mail or password", errorcode = (int)HttpStatusCode.NotFound });
                 }
+                
                 var fones = foneBll.OterFonesUsuario(usuario.Id);
 
                 usuario.fone.Clear();
@@ -125,21 +121,13 @@ namespace YgorTeste.Controllers
                 }
 
 
-                usuBll.AtualizarUsuario(usuario);
+                usuBll.AtualizarUsuario(usuario);             
 
-                MensagemUsuarioObjeto msgusu = new MensagemUsuarioObjeto();
-                msgusu.Msg = "Login realizado com sucesso";
-                msgusu.Codigo = (int)HttpStatusCode.OK;
-                msgusu.usuario = usuario;
-
-                return Ok(msgusu);
+                return Ok(new { message = "Login realizado com sucesso" , codigo= (int)HttpStatusCode.OK, usuario });
 
             }catch(Exception e)
-            {
-                MensagemUsuario msgerro = new MensagemUsuario();
-                msgerro.Msg = e.Message;
-                msgerro.Codigo = (int) HttpStatusCode.NotFound; 
-                return Ok(msgerro);
+            {                
+                return NotFound( new { message = e.Message , errorCode = (int)HttpStatusCode.NotFound });
             }
 
 
@@ -166,11 +154,8 @@ namespace YgorTeste.Controllers
                 var usuario = usuBll.ObterUsuario(loginUsuario.Email, loginUsuario.password);
 
                 if (usuario == null)
-                {
-                    MensagemUsuario msg = new MensagemUsuario();
-                    msg.Msg = "Invalid e-mail or password";
-                    msg.Codigo = (int)HttpStatusCode.NotFound;
-                    return Ok(msg);
+                {                   
+                    return NotFound(new { message = "Invalid e-mail or password" , errorcode= (int)HttpStatusCode.NotFound });
                 }
                 var fones = foneBll.OterFonesUsuario(usuario.Id);
 
@@ -184,20 +169,13 @@ namespace YgorTeste.Controllers
 
                 usuBll.AtualizarUsuario(usuario);
 
-                MensagemUsuarioObjeto msgusu = new MensagemUsuarioObjeto();
-                msgusu.Msg = "Login realizado com sucesso";
-                msgusu.Codigo = (int)HttpStatusCode.OK;
-                msgusu.usuario = usuario;
-
-                return Ok(msgusu);
+               
+                return Ok(usuario);
 
             }
             catch (Exception e)
-            {
-                MensagemUsuario msgerro = new MensagemUsuario();
-                msgerro.Msg = e.Message;
-                msgerro.Codigo = (int)HttpStatusCode.NotFound;
-                return Ok(msgerro);
+            {               
+                return NotFound(new {message=e.Message, errorcode= (int)HttpStatusCode.NotFound });
             }
 
 

@@ -1,15 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using YgorTeste.BLL;
 using YgorTeste.Context;
 using YgorTeste.DAL;
-using YgorTeste.Mensagem;
 using YgorTeste.Models;
 
 namespace YgorTeste.Controllers
@@ -99,7 +96,6 @@ namespace YgorTeste.Controllers
             try
             {
 
-                MensagemUsuario msgusu = new MensagemUsuario();
                 UsuarioBLL usubll = new UsuarioBLL(new UsuarioDAL(_context));
 
 
@@ -111,10 +107,12 @@ namespace YgorTeste.Controllers
                 bool existe = usubll.EmailExiste(usuario.email);
 
                 if (existe)
-                {
-                    msgusu.Msg = "E-mail already exists";
-                    msgusu.Codigo = (int)HttpStatusCode.NonAuthoritativeInformation;
-                    return Ok(msgusu);
+                {                    
+                    return NotFound(new
+                    {
+                        message = "E-mail already exists",
+                        errorCode = (int)HttpStatusCode.NonAuthoritativeInformation
+                    });
                 }
 
                 usuario.createdAt = DateTime.Now;
@@ -129,17 +127,20 @@ namespace YgorTeste.Controllers
                 }
 
                 await _context.SaveChangesAsync();
+                             
 
-                msgusu.Msg = "Usuário Cadastrado com sucesso";
-                msgusu.Codigo = (int)HttpStatusCode.OK;
+                return Ok(new { message = "Usuário Cadastrado com sucesso", codigo = (int)HttpStatusCode.OK });
 
-                return Ok(msgusu);
             }catch(Exception e)
             {
-                MensagemUsuario msgErro = new MensagemUsuario();
-                msgErro.Msg = e.Message;
-                msgErro.Codigo = (int)HttpStatusCode.NotFound;
-                return Ok();
+
+                return NotFound(new
+                {
+                    message = e.Message,
+                    errorCode = (int)HttpStatusCode.NotFound
+                });
+
+
             }
         }
 
