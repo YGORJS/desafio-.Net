@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -137,6 +139,64 @@ namespace YgorTeste.Controllers
                 MensagemUsuario msgerro = new MensagemUsuario();
                 msgerro.Msg = e.Message;
                 msgerro.Codigo = (int) HttpStatusCode.NotFound; 
+                return Ok(msgerro);
+            }
+
+
+        }
+
+        // POST: api/LoginUsuarios
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [HttpPost]
+        [Route("me")]
+        public async Task<IActionResult> PostLoginUsuarioToken([FromBody] LoginUsuario loginUsuario)
+        {
+
+            try
+            {
+
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
+
+                UsuarioBLL usuBll = new UsuarioBLL(new UsuarioDAL(_context));
+                FoneBLL foneBll = new FoneBLL(new FoneDAL(_context));
+
+                var usuario = usuBll.ObterUsuario(loginUsuario.Email, loginUsuario.password);
+
+                if (usuario == null)
+                {
+                    MensagemUsuario msg = new MensagemUsuario();
+                    msg.Msg = "Invalid e-mail or password";
+                    msg.Codigo = (int)HttpStatusCode.NotFound;
+                    return Ok(msg);
+                }
+                var fones = foneBll.OterFonesUsuario(usuario.Id);
+
+                usuario.fone.Clear();
+
+                foreach (Fone foneusu in fones)
+                {
+                    usuario.fone.Add(foneusu);
+                }
+
+
+                usuBll.AtualizarUsuario(usuario);
+
+                MensagemUsuarioObjeto msgusu = new MensagemUsuarioObjeto();
+                msgusu.Msg = "Login realizado com sucesso";
+                msgusu.Codigo = (int)HttpStatusCode.OK;
+                msgusu.usuario = usuario;
+
+                return Ok(msgusu);
+
+            }
+            catch (Exception e)
+            {
+                MensagemUsuario msgerro = new MensagemUsuario();
+                msgerro.Msg = e.Message;
+                msgerro.Codigo = (int)HttpStatusCode.NotFound;
                 return Ok(msgerro);
             }
 
