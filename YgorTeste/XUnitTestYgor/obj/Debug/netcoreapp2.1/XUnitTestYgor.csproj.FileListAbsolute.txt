@@ -1,0 +1,17 @@
+C:\Users\ygor.johasson.silva\Documents\GitHub\desafio-.Net\YgorTeste\XUnitTestYgor\bin\Debug\netcoreapp2.1\xunit.runner.visualstudio.dotnetcore.testadapter.dll
+C:\Users\ygor.johasson.silva\Documents\GitHub\desafio-.Net\YgorTeste\XUnitTestYgor\bin\Debug\netcoreapp2.1\xunit.runner.reporters.netcoreapp10.dll
+C:\Users\ygor.johasson.silva\Documents\GitHub\desafio-.Net\YgorTeste\XUnitTestYgor\bin\Debug\netcoreapp2.1\xunit.runner.utility.netcoreapp10.dll
+C:\Users\ygor.johasson.silva\Documents\GitHub\desafio-.Net\YgorTeste\XUnitTestYgor\bin\Debug\netcoreapp2.1\XUnitTestYgor.deps.json
+C:\Users\ygor.johasson.silva\Documents\GitHub\desafio-.Net\YgorTeste\XUnitTestYgor\bin\Debug\netcoreapp2.1\XUnitTestYgor.runtimeconfig.json
+C:\Users\ygor.johasson.silva\Documents\GitHub\desafio-.Net\YgorTeste\XUnitTestYgor\bin\Debug\netcoreapp2.1\XUnitTestYgor.runtimeconfig.dev.json
+C:\Users\ygor.johasson.silva\Documents\GitHub\desafio-.Net\YgorTeste\XUnitTestYgor\bin\Debug\netcoreapp2.1\XUnitTestYgor.dll
+C:\Users\ygor.johasson.silva\Documents\GitHub\desafio-.Net\YgorTeste\XUnitTestYgor\bin\Debug\netcoreapp2.1\XUnitTestYgor.pdb
+C:\Users\ygor.johasson.silva\Documents\GitHub\desafio-.Net\YgorTeste\XUnitTestYgor\obj\Debug\netcoreapp2.1\XUnitTestYgor.csprojAssemblyReference.cache
+C:\Users\ygor.johasson.silva\Documents\GitHub\desafio-.Net\YgorTeste\XUnitTestYgor\obj\Debug\netcoreapp2.1\XUnitTestYgor.csproj.CoreCompileInputs.cache
+C:\Users\ygor.johasson.silva\Documents\GitHub\desafio-.Net\YgorTeste\XUnitTestYgor\obj\Debug\netcoreapp2.1\XUnitTestYgor.AssemblyInfoInputs.cache
+C:\Users\ygor.johasson.silva\Documents\GitHub\desafio-.Net\YgorTeste\XUnitTestYgor\obj\Debug\netcoreapp2.1\XUnitTestYgor.AssemblyInfo.cs
+C:\Users\ygor.johasson.silva\Documents\GitHub\desafio-.Net\YgorTeste\XUnitTestYgor\obj\Debug\netcoreapp2.1\XUnitTestYgor.dll
+C:\Users\ygor.johasson.silva\Documents\GitHub\desafio-.Net\YgorTeste\XUnitTestYgor\obj\Debug\netcoreapp2.1\XUnitTestYgor.pdb
+C:\Users\ygor.johasson.silva\Documents\GitHub\desafio-.Net\YgorTeste\XUnitTestYgor\bin\Debug\netcoreapp2.1\YgorTeste.dll
+C:\Users\ygor.johasson.silva\Documents\GitHub\desafio-.Net\YgorTeste\XUnitTestYgor\bin\Debug\netcoreapp2.1\YgorTeste.pdb
+C:\Users\ygor.johasson.silva\Documents\GitHub\desafio-.Net\YgorTeste\XUnitTestYgor\obj\Debug\netcoreapp2.1\XUnitTestYgor.csproj.CopyComplete
