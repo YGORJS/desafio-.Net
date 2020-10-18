@@ -26,34 +26,34 @@ namespace YgorTeste.Controllers
             _context = context;
         }
 
-        // GET: api/Usuario
-        [HttpGet]
-        public IEnumerable<Usuario> GetUsuarios()
-        {
-            return _context.Usuarios;
-        }
+        //// GET: api/Usuario
+        //[HttpGet]
+        //public IEnumerable<Usuario> GetUsuarios()
+        //{
+        //    return _context.Usuarios;
+        //}
 
-        // GET: api/Usuario/5
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetUsuario([FromRoute] int id)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+        //// GET: api/Usuario/5
+        //[HttpGet("{id}")]
+        //public async Task<IActionResult> GetUsuario([FromRoute] int id)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return BadRequest(ModelState);
+        //    }
 
-            var usuario = await _context.Usuarios.FindAsync(id);
+        //    var usuario = await _context.Usuarios.FindAsync(id);
 
-            if (usuario == null)
-            {
-                return NotFound();
-            }
+        //    if (usuario == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            MensagemUsuario msgusu = new MensagemUsuario();
-            msgusu.Msg = "Usuário Cadastrado com sucesso";
+        //    MensagemUsuario msgusu = new MensagemUsuario();
+        //    msgusu.Msg = "Usuário Cadastrado com sucesso";
 
-            return Ok(msgusu);
-        }
+        //    return Ok(msgusu);
+        //}
 
         // PUT: api/Usuario/5
         [HttpPut("{id}")]
@@ -147,26 +147,26 @@ namespace YgorTeste.Controllers
 
 
 
-        // DELETE: api/Usuario/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteUsuario([FromRoute] int id)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+        //// DELETE: api/Usuario/5
+        //[HttpDelete("{id}")]
+        //public async Task<IActionResult> DeleteUsuario([FromRoute] int id)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return BadRequest(ModelState);
+        //    }
 
-            var usuario = await _context.Usuarios.FindAsync(id);
-            if (usuario == null)
-            {
-                return NotFound();
-            }
+        //    var usuario = await _context.Usuarios.FindAsync(id);
+        //    if (usuario == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            _context.Usuarios.Remove(usuario);
-            await _context.SaveChangesAsync();
+        //    _context.Usuarios.Remove(usuario);
+        //    await _context.SaveChangesAsync();
 
-            return Ok(usuario);
-        }
+        //    return Ok(usuario);
+        //}
 
         private bool UsuarioExists(int id)
         {

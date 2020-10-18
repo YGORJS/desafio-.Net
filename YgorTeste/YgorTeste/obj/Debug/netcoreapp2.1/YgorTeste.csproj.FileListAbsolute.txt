@@ -11,3 +11,4 @@ C:\Users\ygor.johasson.silva\Documents\GitHub\desafio-.Net\YgorTeste\YgorTeste\o
 C:\Users\ygor.johasson.silva\Documents\GitHub\desafio-.Net\YgorTeste\YgorTeste\obj\Debug\netcoreapp2.1\YgorTeste.RazorTargetAssemblyInfo.cache
 C:\Users\ygor.johasson.silva\Documents\GitHub\desafio-.Net\YgorTeste\YgorTeste\obj\Debug\netcoreapp2.1\YgorTeste.dll
 C:\Users\ygor.johasson.silva\Documents\GitHub\desafio-.Net\YgorTeste\YgorTeste\obj\Debug\netcoreapp2.1\YgorTeste.pdb
+C:\Users\ygor.johasson.silva\Documents\GitHub\desafio-.Net\YgorTeste\YgorTeste\obj\Debug\netcoreapp2.1\YgorTeste.csprojAssemblyReference.cache
