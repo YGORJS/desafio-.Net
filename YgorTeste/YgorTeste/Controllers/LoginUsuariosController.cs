@@ -23,15 +23,18 @@ namespace YgorTeste.Controllers
     {
         private readonly ApiContext _context;
         private readonly UsuarioDTO _usuarioDTO;
+        private readonly FoneDTO _foneDTO;
         private readonly IFoneBLL _foneBLL;
         private readonly IUsuarioBLL _usuarioBLL;
 
-        public LoginUsuariosController(ApiContext context, UsuarioDTO usuarioDTO, IFoneBLL foneBLL, IUsuarioBLL usuarioBLL)
+        public LoginUsuariosController(ApiContext context, UsuarioDTO usuarioDTO, IFoneBLL foneBLL, IUsuarioBLL usuarioBLL,  FoneDTO foneDTO)
         {
             _context = context;
             _usuarioDTO = usuarioDTO;
             _foneBLL = foneBLL;
             _usuarioBLL = usuarioBLL;
+            _foneDTO = foneDTO;
+            _usuarioDTO.fone = new List<FoneDTO>();
         }
 
         // GET: api/LoginUsuarios
@@ -119,20 +122,21 @@ namespace YgorTeste.Controllers
                 
                 var fones = _foneBLL.OterFonesUsuario(usuario.Id);
 
-                usuario.fone.Clear();
-
-                foreach (Fone foneusu in fones)
-                {
-                    usuario.fone.Add(foneusu);
-                }
-
-
+               
                 _usuarioBLL.AtualizarUsuario(usuario);
+
+                foreach(Fone fone in fones)
+                {
+                    _foneDTO.numero = fone.numero;
+                    _foneDTO.CodigoPais = fone.CodigoPais;
+                    _foneDTO.Codigoarea = fone.Codigoarea;
+
+                    _usuarioDTO.fone.Add(_foneDTO);
+                }
 
                 _usuarioDTO.firstName = usuario.firstName;
                 _usuarioDTO.lastName = usuario.lastName;
                 _usuarioDTO.email = usuario.email;
-                _usuarioDTO.fone = usuario.fone;
                 _usuarioDTO.created_at = usuario.createdAt.ToString("MM/dd/yyyy HH:mm");
                 _usuarioDTO.last_login = usuario.last_login.ToString("MM/dd/yyyy HH:mm");
 
@@ -171,20 +175,23 @@ namespace YgorTeste.Controllers
                 }
                 var fones = _foneBLL.OterFonesUsuario(usuario.Id);
 
-                usuario.fone.Clear();
+                //usuario.fone.Clear();
 
-                foreach (Fone foneusu in fones)
+             
+                foreach (Fone fone in fones)
                 {
-                    usuario.fone.Add(foneusu);
-                }
+                    _foneDTO.numero = fone.numero;
+                    _foneDTO.CodigoPais = fone.CodigoPais;
+                    _foneDTO.Codigoarea = fone.Codigoarea;
 
+                    _usuarioDTO.fone.Add(_foneDTO);
+                }
 
                 _usuarioBLL.AtualizarUsuario(usuario);
 
                 _usuarioDTO.firstName = usuario.firstName;
                 _usuarioDTO.lastName = usuario.lastName;
                 _usuarioDTO.email = usuario.email;
-                _usuarioDTO.fone = usuario.fone;
                 _usuarioDTO.created_at = usuario.createdAt.ToString("MM/dd/yyyy HH:mm");
                 _usuarioDTO.last_login = usuario.last_login.ToString("MM/dd/yyyy HH:mm");
 

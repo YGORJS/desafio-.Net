@@ -54,8 +54,10 @@ namespace YgorTeste
             services.AddTransient<IUsuarioDAL, UsuarioDAL>();
 
             services.AddTransient<UsuarioDTO>();
+            services.AddTransient<FoneDTO>();
 
-            
+
+
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
          options.TokenValidationParameters = new TokenValidationParameters

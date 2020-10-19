@@ -10,7 +10,7 @@ namespace YgorTeste.Models.DTO
         public string firstName { get; set; }
         public string lastName { get; set; }
         public string email { get; set; }
-        public List<Fone> fone { get; set; }
+        public List<FoneDTO> fone { get; set; }
         public string created_at { get; set; }
         public string last_login { get; set; }
     }
