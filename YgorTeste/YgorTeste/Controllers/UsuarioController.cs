@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using YgorTeste.BLL;
 using YgorTeste.Context;
 using YgorTeste.DAL;
+using YgorTeste.IBLL;
 using YgorTeste.Models;
 
 namespace YgorTeste.Controllers
@@ -17,10 +18,13 @@ namespace YgorTeste.Controllers
     public class UsuarioController : ControllerBase
     {
         private readonly ApiContext _context;
+        private readonly IUsuarioBLL _usuarioBLL;
 
-        public UsuarioController(ApiContext context)
+
+        public UsuarioController(ApiContext context, IUsuarioBLL usuarioBLL)
         {
             _context = context;
+            _usuarioBLL = usuarioBLL;
         }
 
         //// GET: api/Usuario
@@ -95,16 +99,13 @@ namespace YgorTeste.Controllers
 
             try
             {
-
-                UsuarioBLL usubll = new UsuarioBLL(new UsuarioDAL(_context));
-
-
+                               
                 if (!ModelState.IsValid)
                 {
                     return BadRequest(ModelState);
                 }
 
-                bool existe = usubll.EmailExiste(usuario.email);
+                bool existe = _usuarioBLL.EmailExiste(usuario.email);
 
                 if (existe)
                 {                    
@@ -115,18 +116,7 @@ namespace YgorTeste.Controllers
                     });
                 }
 
-                usuario.createdAt = DateTime.Now;
-                _context.Usuarios.Add(usuario);
-
-
-                foreach (Fone fones in usuario.fone)
-                {
-                    fones.usuarioid = usuario.Id;
-                    _context.Fone.Add(fones);
-
-                }
-
-                await _context.SaveChangesAsync();
+                _usuarioBLL.CadastrarUsuario(usuario, usuario.fone);
                              
 
                 return Ok(new { message = "Usuário Cadastrado com sucesso", codigo = (int)HttpStatusCode.OK });

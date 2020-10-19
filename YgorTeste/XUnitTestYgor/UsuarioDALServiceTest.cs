@@ -19,6 +19,11 @@ namespace XUnitTestYgor
             throw new NotImplementedException();
         }
 
+        bool IUsuarioDAL.CriarUsuario(Usuario usuario, List<Fone> fone)
+        {
+            throw new NotImplementedException();
+        }
+
         List<Usuario> IUsuarioDAL.EmailExiste(string email)
         {
             List<Usuario> usuarios  = new List<Usuario>();

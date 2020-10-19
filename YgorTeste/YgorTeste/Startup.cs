@@ -15,9 +15,13 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using YgorTeste.BLL;
 using YgorTeste.Context;
+using YgorTeste.DAL;
+using YgorTeste.IBLL;
 using YgorTeste.IService;
 using YgorTeste.Models;
+using YgorTeste.Models.DTO;
 using YgorTeste.Service;
 
 namespace YgorTeste
@@ -42,6 +46,16 @@ namespace YgorTeste
 
 
             services.AddTransient<ITokenService, TokenService>();
+
+            services.AddTransient<IFoneBLL, FoneBLL>();
+            services.AddTransient<IFoneDAL, FoneDAL>();
+
+            services.AddTransient<IUsuarioBLL, UsuarioBLL>();
+            services.AddTransient<IUsuarioDAL, UsuarioDAL>();
+
+            services.AddTransient<UsuarioDTO>();
+
+            
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
          options.TokenValidationParameters = new TokenValidationParameters

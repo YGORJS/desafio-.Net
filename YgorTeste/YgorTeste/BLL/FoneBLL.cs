@@ -4,11 +4,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using YgorTeste.Context;
 using YgorTeste.DAL;
+using YgorTeste.IBLL;
 using YgorTeste.Models;
 
 namespace YgorTeste.BLL
 {
-    public class FoneBLL
+    public class FoneBLL : IFoneBLL
     {
         private readonly IFoneDAL _foneDal;
 

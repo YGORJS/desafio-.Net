@@ -10,7 +10,9 @@ using Microsoft.EntityFrameworkCore;
 using YgorTeste.BLL;
 using YgorTeste.Context;
 using YgorTeste.DAL;
+using YgorTeste.IBLL;
 using YgorTeste.Models;
+using YgorTeste.Models.DTO;
 
 namespace YgorTeste.Controllers
 {
@@ -20,10 +22,16 @@ namespace YgorTeste.Controllers
     public class LoginUsuariosController : ControllerBase
     {
         private readonly ApiContext _context;
+        private readonly UsuarioDTO _usuarioDTO;
+        private readonly IFoneBLL _foneBLL;
+        private readonly IUsuarioBLL _usuarioBLL;
 
-        public LoginUsuariosController(ApiContext context)
+        public LoginUsuariosController(ApiContext context, UsuarioDTO usuarioDTO, IFoneBLL foneBLL, IUsuarioBLL usuarioBLL)
         {
             _context = context;
+            _usuarioDTO = usuarioDTO;
+            _foneBLL = foneBLL;
+            _usuarioBLL = usuarioBLL;
         }
 
         // GET: api/LoginUsuarios
@@ -101,17 +109,15 @@ namespace YgorTeste.Controllers
                     return BadRequest(ModelState);
                 }
 
-                UsuarioBLL usuBll = new UsuarioBLL(new UsuarioDAL(_context));
-                FoneBLL foneBll = new FoneBLL(new FoneDAL(_context));
 
-                var usuario = usuBll.ObterUsuario(loginUsuario.Email, loginUsuario.password);
+                var usuario = _usuarioBLL.ObterUsuario(loginUsuario.Email, loginUsuario.password);
 
                 if (usuario == null)
                 {                    
                     return NotFound(new { message = "Invalid e-mail or password", errorcode = (int)HttpStatusCode.NotFound });
                 }
                 
-                var fones = foneBll.OterFonesUsuario(usuario.Id);
+                var fones = _foneBLL.OterFonesUsuario(usuario.Id);
 
                 usuario.fone.Clear();
 
@@ -121,9 +127,17 @@ namespace YgorTeste.Controllers
                 }
 
 
-                usuBll.AtualizarUsuario(usuario);             
+                _usuarioBLL.AtualizarUsuario(usuario);
 
-                return Ok(new { message = "Login realizado com sucesso" , codigo= (int)HttpStatusCode.OK, usuario });
+                _usuarioDTO.firstName = usuario.firstName;
+                _usuarioDTO.lastName = usuario.lastName;
+                _usuarioDTO.email = usuario.email;
+                _usuarioDTO.fone = usuario.fone;
+                _usuarioDTO.created_at = usuario.createdAt.ToString("MM/dd/yyyy HH:mm");
+                _usuarioDTO.last_login = usuario.last_login.ToString("MM/dd/yyyy HH:mm");
+
+
+                return Ok(new { message = "Login realizado com sucesso" , codigo= (int)HttpStatusCode.OK, usuario = _usuarioDTO});
 
             }catch(Exception e)
             {                
@@ -148,16 +162,14 @@ namespace YgorTeste.Controllers
                     return BadRequest(ModelState);
                 }
 
-                UsuarioBLL usuBll = new UsuarioBLL(new UsuarioDAL(_context));
-                FoneBLL foneBll = new FoneBLL(new FoneDAL(_context));
 
-                var usuario = usuBll.ObterUsuario(loginUsuario.Email, loginUsuario.password);
+                var usuario = _usuarioBLL.ObterUsuario(loginUsuario.Email, loginUsuario.password);
 
                 if (usuario == null)
                 {                   
                     return NotFound(new { message = "Invalid e-mail or password" , errorcode= (int)HttpStatusCode.NotFound });
                 }
-                var fones = foneBll.OterFonesUsuario(usuario.Id);
+                var fones = _foneBLL.OterFonesUsuario(usuario.Id);
 
                 usuario.fone.Clear();
 
@@ -167,10 +179,16 @@ namespace YgorTeste.Controllers
                 }
 
 
-                usuBll.AtualizarUsuario(usuario);
+                _usuarioBLL.AtualizarUsuario(usuario);
 
-               
-                return Ok(usuario);
+                _usuarioDTO.firstName = usuario.firstName;
+                _usuarioDTO.lastName = usuario.lastName;
+                _usuarioDTO.email = usuario.email;
+                _usuarioDTO.fone = usuario.fone;
+                _usuarioDTO.created_at = usuario.createdAt.ToString("MM/dd/yyyy HH:mm");
+                _usuarioDTO.last_login = usuario.last_login.ToString("MM/dd/yyyy HH:mm");
+
+                return Ok(new { usuario = _usuarioDTO });
 
             }
             catch (Exception e)

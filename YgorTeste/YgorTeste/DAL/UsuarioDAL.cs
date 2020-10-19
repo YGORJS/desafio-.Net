@@ -55,6 +55,30 @@ namespace YgorTeste.DAL
             return usuario;
         }
 
+        public bool CriarUsuario(Usuario usuario, List<Fone> fone)
+        {
+            try
+            {
+                _context.Usuarios.Add(usuario);
 
-    }
+                foreach (Fone fones in usuario.fone)
+                {
+                    fones.usuarioid = usuario.Id;
+                    _context.Fone.Add(fones);
+
+                }
+                _context.SaveChangesAsync();
+
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+
+
+        }
+
+
+        }
 }

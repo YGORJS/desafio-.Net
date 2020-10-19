@@ -7,10 +7,11 @@ using Microsoft.EntityFrameworkCore;
 using YgorTeste.DAL;
 using YgorTeste.Context;
 using YgorTeste.Models;
+using YgorTeste.IBLL;
 
 namespace YgorTeste.BLL
 {
-    public class UsuarioBLL
+    public class UsuarioBLL:IUsuarioBLL
     {
         private readonly IUsuarioDAL _usuarioDAL ;
 
@@ -45,7 +46,15 @@ namespace YgorTeste.BLL
               usuario.last_login = DateTime.Now;
               return  _usuarioDAL.AtualizarUsuario(usuario);      
           
-        } 
+        }
+
+        public bool CadastrarUsuario(Usuario usuario, List<Fone> fone)
+        {
+            usuario.createdAt = DateTime.Now;
+            return _usuarioDAL.CriarUsuario(usuario,fone);
+
+        }
+
 
     }
 
