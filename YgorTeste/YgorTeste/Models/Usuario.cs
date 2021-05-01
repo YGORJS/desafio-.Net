@@ -27,7 +27,7 @@ namespace YgorTeste.Models
         [DataType(DataType.Password)]
         public string password { get; set; }
 
-        public List<Fone> fone  { get; set; }
+        public List<phones> phones { get; set; }
 
         public DateTime createdAt { get; set; }
 

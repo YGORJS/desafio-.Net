@@ -16,7 +16,7 @@ namespace YgorTeste.Context
         { }
 
         public DbSet<Usuario> Usuarios { get; set; }
-        public DbSet<Fone> Fone { get; set; }
+        public DbSet<phones> Fone { get; set; }
         public DbSet<YgorTeste.Models.LoginUsuario> LoginUsuario { get; set; }
         public DbSet<ApplicationUserToken> ApplicationUserToken { get; set; }
 

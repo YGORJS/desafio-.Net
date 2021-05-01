@@ -7,10 +7,10 @@ using YgorTeste.Models;
 
 namespace YgorTeste.IBLL
 {
-    public interface IFoneBLL
+    public interface IphonesBLL
     {
 
-        List<Fone> OterFonesUsuario(int UsuarioId);
+        List<phones> OterFonesUsuario(int UsuarioId);
         
     }
 }

@@ -24,10 +24,10 @@ namespace YgorTeste.Controllers
         private readonly ApiContext _context;
         private readonly UsuarioDTO _usuarioDTO;
         private readonly FoneDTO _foneDTO;
-        private readonly IFoneBLL _foneBLL;
+        private readonly IphonesBLL _foneBLL;
         private readonly IUsuarioBLL _usuarioBLL;
 
-        public LoginUsuariosController(ApiContext context, UsuarioDTO usuarioDTO, IFoneBLL foneBLL, IUsuarioBLL usuarioBLL,  FoneDTO foneDTO)
+        public LoginUsuariosController(ApiContext context, UsuarioDTO usuarioDTO, IphonesBLL foneBLL, IUsuarioBLL usuarioBLL,  FoneDTO foneDTO)
         {
             _context = context;
             _usuarioDTO = usuarioDTO;
@@ -113,7 +113,7 @@ namespace YgorTeste.Controllers
                 }
 
 
-                var usuario = _usuarioBLL.ObterUsuario(loginUsuario.Email, loginUsuario.password);
+                var usuario = _usuarioBLL.ObterUsuario(loginUsuario.email, loginUsuario.password);
 
                 if (usuario == null)
                 {                    
@@ -125,11 +125,11 @@ namespace YgorTeste.Controllers
                
                 _usuarioBLL.AtualizarUsuario(usuario);
 
-                foreach(Fone fone in fones)
+                foreach(phones fone in fones)
                 {
-                    _foneDTO.numero = fone.numero;
-                    _foneDTO.CodigoPais = fone.CodigoPais;
-                    _foneDTO.Codigoarea = fone.Codigoarea;
+                    _foneDTO.numero = fone.number;
+                    _foneDTO.CodigoPais = fone.country_code;
+                    _foneDTO.Codigoarea = fone.area_code;
 
                     _usuarioDTO.fone.Add(_foneDTO);
                 }
@@ -167,7 +167,7 @@ namespace YgorTeste.Controllers
                 }
 
 
-                var usuario = _usuarioBLL.ObterUsuario(loginUsuario.Email, loginUsuario.password);
+                var usuario = _usuarioBLL.ObterUsuario(loginUsuario.email, loginUsuario.password);
 
                 if (usuario == null)
                 {                   
@@ -178,11 +178,11 @@ namespace YgorTeste.Controllers
                 //usuario.fone.Clear();
 
              
-                foreach (Fone fone in fones)
+                foreach (phones fone in fones)
                 {
-                    _foneDTO.numero = fone.numero;
-                    _foneDTO.CodigoPais = fone.CodigoPais;
-                    _foneDTO.Codigoarea = fone.Codigoarea;
+                    _foneDTO.numero = fone.number;
+                    _foneDTO.CodigoPais = fone.country_code;
+                    _foneDTO.Codigoarea = fone.area_code;
 
                     _usuarioDTO.fone.Add(_foneDTO);
                 }

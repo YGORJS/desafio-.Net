@@ -13,6 +13,6 @@ namespace YgorTeste.DAL
 
         Usuario ObterUsuario(string email, string password);
 
-        bool CriarUsuario(Usuario usuario, List<Fone> fone);
+        bool CriarUsuario(Usuario usuario, List<phones> fone);
     }
 }

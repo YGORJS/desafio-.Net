@@ -7,19 +7,19 @@ using YgorTeste.Models;
 
 namespace YgorTeste.DAL
 {
-    public class FoneDAL : IFoneDAL
+    public class PhonesDAL : IphonesDAL
     {
         private readonly ApiContext _context;
 
-        public FoneDAL(ApiContext context)
+        public PhonesDAL(ApiContext context)
         {
             _context = context;
         }
 
-        public List<Fone> ObterFonesUsuario(int UsuarioId)
+        public List<phones> ObterFonesUsuario(int UsuarioId)
         {
 
-            List<Fone> Fones =  _context.Fone.Where(a => a.usuarioid == UsuarioId).ToList();
+            List<phones> Fones =  _context.Fone.Where(a => a.usuarioid == UsuarioId).ToList();
 
             return Fones;
         }

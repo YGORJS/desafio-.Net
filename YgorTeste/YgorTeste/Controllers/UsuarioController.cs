@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
@@ -27,34 +28,34 @@ namespace YgorTeste.Controllers
             _usuarioBLL = usuarioBLL;
         }
 
-        //// GET: api/Usuario
-        //[HttpGet]
-        //public IEnumerable<Usuario> GetUsuarios()
-        //{
-        //    return _context.Usuarios;
-        //}
+        // GET: api/Usuario
+        [HttpGet]
+        public IEnumerable<Usuario> GetUsuarios()
+        {
+            return _context.Usuarios;
+        }
 
-        //// GET: api/Usuario/5
-        //[HttpGet("{id}")]
-        //public async Task<IActionResult> GetUsuario([FromRoute] int id)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return BadRequest(ModelState);
-        //    }
+        // GET: api/Usuario/5
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetUsuario([FromRoute] int id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
 
-        //    var usuario = await _context.Usuarios.FindAsync(id);
+            var usuario = await _context.Usuarios.FindAsync(id);
 
-        //    if (usuario == null)
-        //    {
-        //        return NotFound();
-        //    }
+            if (usuario == null)
+            {
+                return NotFound();
+            }
 
-        //    MensagemUsuario msgusu = new MensagemUsuario();
-        //    msgusu.Msg = "Usuário Cadastrado com sucesso";
 
-        //    return Ok(msgusu);
-        //}
+            return Ok(usuario);
+        }
+
+
 
         // PUT: api/Usuario/5
         [HttpPut("{id}")]
@@ -117,7 +118,7 @@ namespace YgorTeste.Controllers
                 }
 
 
-                _usuarioBLL.CadastrarUsuario(usuario, usuario.fone);
+                _usuarioBLL.CadastrarUsuario(usuario, usuario.phones);
                              
 
                 return Ok(new { message = "Usuário Cadastrado com sucesso", codigo = (int)HttpStatusCode.OK });
@@ -168,22 +169,45 @@ namespace YgorTeste.Controllers
         // GET: api/Usuario/5        
         [HttpPost]
         [Route("Signin")]
-        public async Task<IActionResult> Signin([FromRoute] string password, string email)
+        public async Task<IActionResult> Signin([FromBody]  LoginUsuario loginUsuario)
         {
+
+            try
+            { 
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var usuario =  _context.Usuarios.Where(a=>a.email.Equals(email) && a.password.Equals(password)).ToList() ;
+            var usuario = _usuarioBLL.ObterUsuario(loginUsuario.email, loginUsuario.password);
+
+
 
             if (usuario == null)
             {
-                return NotFound();
+                return NotFound(new
+                {
+                    message = "Invalid e-mail or password",
+                    errorCode = (int)HttpStatusCode.NotFound
+                });
             }
 
 
-            return CreatedAtAction("GetUsuario", new { id = usuario.FirstOrDefault().Id }, usuario.FirstOrDefault()); ;
+            return CreatedAtAction("GetUsuario", new { id = usuario.Id }, usuario);
+
+            }
+            catch (Exception e)
+            {
+
+                return NotFound(new
+                {
+                    message = e.Message,
+                    errorCode = (int)HttpStatusCode.NotFound
+                });
+
+
+            }
         }
     }
 }

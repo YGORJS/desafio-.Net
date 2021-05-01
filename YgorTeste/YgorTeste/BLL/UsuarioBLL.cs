@@ -48,7 +48,7 @@ namespace YgorTeste.BLL
           
         }
 
-        public bool CadastrarUsuario(Usuario usuario, List<Fone> fone)
+        public bool CadastrarUsuario(Usuario usuario, List<phones> fone)
         {
             usuario.createdAt = DateTime.Now;
             return _usuarioDAL.CriarUsuario(usuario,fone);

@@ -19,7 +19,7 @@ namespace XUnitTestYgor
             throw new NotImplementedException();
         }
 
-        bool IUsuarioDAL.CriarUsuario(Usuario usuario, List<Fone> fone)
+        bool IUsuarioDAL.CriarUsuario(Usuario usuario, List<phones> fone)
         {
             throw new NotImplementedException();
         }

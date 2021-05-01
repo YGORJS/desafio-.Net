@@ -47,8 +47,8 @@ namespace YgorTeste
 
             services.AddTransient<ITokenService, TokenService>();
 
-            services.AddTransient<IFoneBLL, FoneBLL>();
-            services.AddTransient<IFoneDAL, FoneDAL>();
+            services.AddTransient<IphonesBLL, PhonesBLL>();
+            services.AddTransient<IphonesDAL, PhonesDAL>();
 
             services.AddTransient<IUsuarioBLL, UsuarioBLL>();
             services.AddTransient<IUsuarioDAL, UsuarioDAL>();

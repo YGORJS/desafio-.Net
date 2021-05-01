@@ -16,7 +16,7 @@ namespace YgorTeste.Models
 
         [Required(ErrorMessage = "Missing field")]
         [RegularExpression(".+\\@.+\\..+", ErrorMessage = "Invalid fields")]
-        public string Email { get; set; }
+        public string email { get; set; }
 
         [Required(ErrorMessage = "Missing field")]
         [DataType(DataType.Password)]

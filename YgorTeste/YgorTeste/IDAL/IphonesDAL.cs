@@ -3,8 +3,8 @@ using YgorTeste.Models;
 
 namespace YgorTeste.DAL
 {
-    public interface IFoneDAL
+    public interface IphonesDAL
     {
-        List<Fone> ObterFonesUsuario(int UsuarioId);
+        List<phones> ObterFonesUsuario(int UsuarioId);
     }
 }

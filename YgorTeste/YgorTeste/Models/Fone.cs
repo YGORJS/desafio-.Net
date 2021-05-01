@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace YgorTeste.Models
 {
-    public class Fone
+    public class phones 
     {
 
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -15,13 +15,13 @@ namespace YgorTeste.Models
         public int Id { get; set; }
 
         [StringLength(9, ErrorMessage = "Invalid fields", MinimumLength = 9)]
-        public string numero { get; set; }
+        public string number { get; set; }
 
         [StringLength(2, ErrorMessage = "Invalid fields", MinimumLength = 2)]
-        public string Codigoarea { get; set; }
+        public string area_code { get; set; }
 
         [StringLength(3, ErrorMessage = "Invalid fields", MinimumLength = 3)]
-        public string CodigoPais { get; set; }
+        public string country_code { get; set; }
 
         public int usuarioid   { get; set; }
 

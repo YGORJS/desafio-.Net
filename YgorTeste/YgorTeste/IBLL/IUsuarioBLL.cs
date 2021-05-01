@@ -16,7 +16,7 @@ namespace YgorTeste.IBLL
 
         bool AtualizarUsuario(Usuario usuario);
 
-        bool CadastrarUsuario(Usuario usuario, List<Fone> fone);
+        bool CadastrarUsuario(Usuario usuario, List<phones> fone);
 
     }
 }
