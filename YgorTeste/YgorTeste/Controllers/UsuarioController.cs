@@ -116,6 +116,7 @@ namespace YgorTeste.Controllers
                     });
                 }
 
+
                 _usuarioBLL.CadastrarUsuario(usuario, usuario.fone);
                              
 
