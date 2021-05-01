@@ -25,8 +25,10 @@ namespace YgorTeste.Models
 
         [Required(ErrorMessage = "Missing field")]
         [DataType(DataType.Password)]
+        [RegularExpression("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$", ErrorMessage = "Necessário ao menos uma letra, um número, um caractere especial, uma letra maiuscula e no mínimo 8 caracteres")]
         public string password { get; set; }
 
+        [Required(ErrorMessage = "Missing field")]
         public List<phones> phones { get; set; }
 
         public DateTime createdAt { get; set; }
