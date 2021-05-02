@@ -20,12 +20,24 @@ namespace XUnitTestYgor
 
 
         [Fact]
+        public void UsuarioExists_VerificarExistenciaUsuario()
+        {
+            // Act 
+            bool okResult = _usuarioDal.UsuarioExists(1);
+            // Assert
+            Assert.IsType<bool>(okResult);
+            Assert.True(okResult);
+        }
+
+        [Fact]
         public void EmailExiste_UsuarioComEmail_ReturnaUsuario()
         {
             // Act 
             var okResult = _usuarioDal.EmailExiste("hello@world.com");
             // Assert
             Assert.IsType<List<Usuario>>(okResult);
+            Assert.NotNull(okResult);
+            Assert.NotEmpty(okResult);
         }
 
         [Fact]
@@ -46,6 +58,9 @@ namespace XUnitTestYgor
             // Assert
             var items = Assert.IsType<List<Usuario>>(okResult);
             Assert.Single(items);
+            Assert.IsType<List<Usuario>>(okResult);
+            Assert.NotNull(okResult);
+            Assert.NotEmpty(okResult);
         }
 
     }

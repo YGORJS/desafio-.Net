@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Xunit;
 using YgorTeste.DAL;
 using YgorTeste.Models;
@@ -53,7 +54,21 @@ namespace XUnitTestYgor
 
         bool IUsuarioDAL.UsuarioExists(int id)
         {
-            throw new NotImplementedException();
+            List<Usuario> usuarios = new List<Usuario>();
+            Usuario usu = new Usuario();
+
+            usu.Id = 1;
+            usu.email = "hello@world.com";
+            usu.firstName = "Hello";
+            usu.lastName = "Word";
+            usu.password = "hunter";
+
+            usuarios.Add(usu);
+
+            if (usuarios.Where(a => a.Id == id).Count() > 0)
+                return true;
+            else
+                return false;
         }
     }
 }
