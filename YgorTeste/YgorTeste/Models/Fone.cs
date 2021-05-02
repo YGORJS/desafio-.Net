@@ -15,12 +15,15 @@ namespace YgorTeste.Models
         public int Id { get; set; }
 
         [StringLength(9, ErrorMessage = "Invalid fields", MinimumLength = 9)]
+        [Required(ErrorMessage = "Missing field")]
         public string number { get; set; }
 
         [StringLength(2, ErrorMessage = "Invalid fields", MinimumLength = 2)]
+        [Required(ErrorMessage = "Missing field")]
         public string area_code { get; set; }
 
         [StringLength(3, ErrorMessage = "Invalid fields", MinimumLength = 3)]
+        [Required(ErrorMessage = "Missing field")]
         public string country_code { get; set; }
 
         public int usuarioid   { get; set; }
