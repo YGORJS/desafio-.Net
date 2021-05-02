@@ -54,7 +54,7 @@ namespace YgorTeste
             services.AddTransient<IUsuarioDAL, UsuarioDAL>();
 
             services.AddTransient<UsuarioDTO>();
-            services.AddTransient<FoneDTO>();
+            services.AddTransient<PhonesDTO>();
 
 
 

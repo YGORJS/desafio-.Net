@@ -12,6 +12,7 @@ using System.Security.Claims;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using YgorTeste.IService;
+using System.Net;
 
 namespace YgorTeste.Controllers
 {
@@ -42,31 +43,57 @@ namespace YgorTeste.Controllers
         [HttpPost("Criar")]
         public async Task<ActionResult<UserToken>> CreateUser([FromBody] UserInfoToken model)
         {
-            var user = new ApplicationUserToken { UserName = model.Email, Email = model.Email };
-            var result = await _userManager.CreateAsync(user, model.Password);
-            if (result.Succeeded)
-            {
-                return _tokenService.BuildToken(model);
+            try {
+                var user = new ApplicationUserToken { UserName = model.Email, Email = model.Email };
+                var result = await _userManager.CreateAsync(user, model.Password);
+                if (result.Succeeded)
+                {
+                    return _tokenService.BuildToken(model);
+                }
+                else
+                {
+                    return BadRequest("Usuário ou senha inválidos");
+                }
             }
-            else
+            catch (Exception e)
             {
-                return BadRequest("Usuário ou senha inválidos");
+
+                return NotFound(new
+                {
+                    message = e.Message,
+                    errorCode = (int)HttpStatusCode.NotFound
+                });
+
+
             }
         }
         [HttpPost("Obter")]
         public async Task<ActionResult<UserToken>> Obter([FromBody] UserInfoToken userInfo)
         {
-            var result = await _signInManager.PasswordSignInAsync(userInfo.Email, userInfo.Password,
-                 isPersistent: false, lockoutOnFailure: false);
+            try{ 
+                var result = await _signInManager.PasswordSignInAsync(userInfo.Email, userInfo.Password,
+                     isPersistent: false, lockoutOnFailure: false);
 
-            if (result.Succeeded)
-            {
-                return _tokenService.BuildToken(userInfo);
+                if (result.Succeeded)
+                {
+                    return _tokenService.BuildToken(userInfo);
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, "login inválido.");
+                    return BadRequest(ModelState);
+                }
             }
-            else
+            catch (Exception e)
             {
-                ModelState.AddModelError(string.Empty, "login inválido.");
-                return BadRequest(ModelState);
+
+                return NotFound(new
+                {
+                    message = e.Message,
+                    errorCode = (int)HttpStatusCode.NotFound
+                });
+
+
             }
         }
       

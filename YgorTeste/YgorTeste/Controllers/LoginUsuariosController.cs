@@ -23,18 +23,18 @@ namespace YgorTeste.Controllers
     {
         private readonly ApiContext _context;
         private readonly UsuarioDTO _usuarioDTO;
-        private readonly FoneDTO _foneDTO;
+        private readonly PhonesDTO _foneDTO;
         private readonly IphonesBLL _foneBLL;
         private readonly IUsuarioBLL _usuarioBLL;
 
-        public LoginUsuariosController(ApiContext context, UsuarioDTO usuarioDTO, IphonesBLL foneBLL, IUsuarioBLL usuarioBLL,  FoneDTO foneDTO)
+        public LoginUsuariosController(ApiContext context, UsuarioDTO usuarioDTO, IphonesBLL foneBLL, IUsuarioBLL usuarioBLL, PhonesDTO foneDTO)
         {
             _context = context;
             _usuarioDTO = usuarioDTO;
             _foneBLL = foneBLL;
             _usuarioBLL = usuarioBLL;
             _foneDTO = foneDTO;
-            _usuarioDTO.fone = new List<FoneDTO>();
+            _usuarioDTO.phones = new List<phones>();
         }
 
         // GET: api/LoginUsuarios
@@ -120,28 +120,12 @@ namespace YgorTeste.Controllers
                     return NotFound(new { message = "Invalid e-mail or password", errorcode = (int)HttpStatusCode.NotFound });
                 }
                 
-                var fones = _foneBLL.OterFonesUsuario(usuario.Id);
 
                
                 _usuarioBLL.AtualizarUsuario(usuario);
 
-                foreach(phones fone in fones)
-                {
-                    _foneDTO.numero = fone.number;
-                    _foneDTO.CodigoPais = fone.country_code;
-                    _foneDTO.Codigoarea = fone.area_code;
 
-                    _usuarioDTO.fone.Add(_foneDTO);
-                }
-
-                _usuarioDTO.firstName = usuario.firstName;
-                _usuarioDTO.lastName = usuario.lastName;
-                _usuarioDTO.email = usuario.email;
-                _usuarioDTO.created_at = usuario.createdAt.ToString("MM/dd/yyyy HH:mm");
-                _usuarioDTO.last_login = usuario.last_login.ToString("MM/dd/yyyy HH:mm");
-
-
-                return Ok(new { message = "Login realizado com sucesso" , codigo= (int)HttpStatusCode.OK, usuario = _usuarioDTO});
+                return Ok(new { message = "Login realizado com sucesso" , codigo= (int)HttpStatusCode.OK, usuario = _usuarioBLL.BuscarUsuario(usuario, _usuarioDTO) });
 
             }catch(Exception e)
             {                
@@ -173,29 +157,14 @@ namespace YgorTeste.Controllers
                 {                   
                     return NotFound(new { message = "Invalid e-mail or password" , errorcode= (int)HttpStatusCode.NotFound });
                 }
-                var fones = _foneBLL.OterFonesUsuario(usuario.Id);
-
-                //usuario.fone.Clear();
-
-             
-                foreach (phones fone in fones)
-                {
-                    _foneDTO.numero = fone.number;
-                    _foneDTO.CodigoPais = fone.country_code;
-                    _foneDTO.Codigoarea = fone.area_code;
-
-                    _usuarioDTO.fone.Add(_foneDTO);
-                }
+              
+                               
 
                 _usuarioBLL.AtualizarUsuario(usuario);
 
-                _usuarioDTO.firstName = usuario.firstName;
-                _usuarioDTO.lastName = usuario.lastName;
-                _usuarioDTO.email = usuario.email;
-                _usuarioDTO.created_at = usuario.createdAt.ToString("MM/dd/yyyy HH:mm");
-                _usuarioDTO.last_login = usuario.last_login.ToString("MM/dd/yyyy HH:mm");
+               
 
-                return Ok(new { usuario = _usuarioDTO });
+                return Ok(new { usuario = _usuarioBLL.BuscarUsuario(usuario, _usuarioDTO) });
 
             }
             catch (Exception e)

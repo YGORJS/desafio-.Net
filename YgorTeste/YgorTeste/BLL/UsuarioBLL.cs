@@ -8,6 +8,7 @@ using YgorTeste.DAL;
 using YgorTeste.Context;
 using YgorTeste.Models;
 using YgorTeste.IBLL;
+using YgorTeste.Models.DTO;
 
 namespace YgorTeste.BLL
 {
@@ -55,7 +56,19 @@ namespace YgorTeste.BLL
 
         }
 
+        public UsuarioDTO BuscarUsuario(Usuario usuario, UsuarioDTO usuarioFormatado)
+        {
+            usuarioFormatado.phones.AddRange(usuario.phones);
 
+
+            usuarioFormatado.firstName = usuario.firstName;
+            usuarioFormatado.lastName = usuario.lastName;
+            usuarioFormatado.email = usuario.email;
+            usuarioFormatado.created_at = usuario.createdAt.ToString("MM/dd/yyyy HH:mm");
+            usuarioFormatado.last_login = usuario.last_login.ToString("MM/dd/yyyy HH:mm");
+
+            return usuarioFormatado;
+        }
     }
 
 }

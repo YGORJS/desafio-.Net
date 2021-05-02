@@ -29,7 +29,7 @@ namespace XUnitTestYgor
         }
 
         [Fact]
-        public void EmailExiste_EmailUnico_ApenasUm()
+        public void EmailExiste_EmailUnico()
         {
             // Act
             var okResult = _usuarioDal.EmailExiste("hello@world.com");
