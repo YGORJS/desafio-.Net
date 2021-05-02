@@ -21,15 +21,13 @@ namespace YgorTeste.Controllers
     [Produces("application/json")]
     public class LoginUsuariosController : ControllerBase
     {
-        private readonly ApiContext _context;
         private readonly UsuarioDTO _usuarioDTO;
         private readonly PhonesDTO _foneDTO;
         private readonly IphonesBLL _foneBLL;
         private readonly IUsuarioBLL _usuarioBLL;
 
-        public LoginUsuariosController(ApiContext context, UsuarioDTO usuarioDTO, IphonesBLL foneBLL, IUsuarioBLL usuarioBLL, PhonesDTO foneDTO)
+        public LoginUsuariosController( UsuarioDTO usuarioDTO, IphonesBLL foneBLL, IUsuarioBLL usuarioBLL, PhonesDTO foneDTO)
         {
-            _context = context;
             _usuarioDTO = usuarioDTO;
             _foneBLL = foneBLL;
             _usuarioBLL = usuarioBLL;
@@ -37,71 +35,15 @@ namespace YgorTeste.Controllers
             _usuarioDTO.phones = new List<phones>();
         }
 
-        // GET: api/LoginUsuarios
-        [HttpGet]
-        public IEnumerable<LoginUsuario> GetLoginUsuario()
-        {
-            return _context.LoginUsuario;
-        }
+        
 
-        // GET: api/LoginUsuarios/5
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetLoginUsuario([FromRoute] int id)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
 
-            var loginUsuario = await _context.LoginUsuario.FindAsync(id);
-
-            if (loginUsuario == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(loginUsuario);
-        }
-
-        // PUT: api/LoginUsuarios/5
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutLoginUsuario([FromRoute] int id, [FromBody] LoginUsuario loginUsuario)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            if (id != loginUsuario.Id)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(loginUsuario).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!LoginUsuarioExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
-        }
+   
 
         // POST: api/LoginUsuarios
         [HttpPost]
         [Route("Signin")]
-        public async Task<IActionResult> PostLoginUsuario([FromBody] LoginUsuario loginUsuario)
+        public IActionResult PostLoginUsuario([FromBody] LoginUsuario loginUsuario)
         {
 
             try
@@ -139,7 +81,7 @@ namespace YgorTeste.Controllers
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpPost]
         [Route("me")]
-        public async Task<IActionResult> PostLoginUsuarioToken([FromBody] LoginUsuario loginUsuario)
+        public IActionResult PostLoginUsuarioToken([FromBody] LoginUsuario loginUsuario)
         {
 
             try
@@ -175,30 +117,7 @@ namespace YgorTeste.Controllers
 
         }
 
-        // DELETE: api/LoginUsuarios/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteLoginUsuario([FromRoute] int id)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+     
 
-            var loginUsuario = await _context.LoginUsuario.FindAsync(id);
-            if (loginUsuario == null)
-            {
-                return NotFound();
-            }
-
-            _context.LoginUsuario.Remove(loginUsuario);
-            await _context.SaveChangesAsync();
-
-            return Ok(loginUsuario);
-        }
-
-        private bool LoginUsuarioExists(int id)
-        {
-            return _context.LoginUsuario.Any(e => e.Id == id);
-        }
     }
 }

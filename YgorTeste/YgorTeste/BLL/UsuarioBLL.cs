@@ -69,6 +69,12 @@ namespace YgorTeste.BLL
 
             return usuarioFormatado;
         }
+
+        public Usuario ObterUsuario(int id)
+        {
+
+            return _usuarioDAL.ObterUsuario(id);
+        }
     }
 
 }

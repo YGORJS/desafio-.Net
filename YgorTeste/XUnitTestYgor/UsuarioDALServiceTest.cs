@@ -8,6 +8,11 @@ namespace XUnitTestYgor
 {
     public class UsuarioDALServiceTest : IUsuarioDAL
     {
+        public Usuario ObterUsuario(int id)
+        {
+            throw new NotImplementedException();
+        }
+
         [Fact]
         public void Test1()
         {

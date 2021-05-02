@@ -90,6 +90,9 @@ namespace YgorTeste.DAL
 
         }
 
-
+        public Usuario ObterUsuario(int id)
+        {
+            return _context.Usuarios.Find(id);
         }
+    }
 }

@@ -14,6 +14,9 @@ namespace YgorTeste.IBLL
         bool EmailExiste(string email);
 
         Usuario ObterUsuario(string email, string password);
+        Usuario ObterUsuario(int id);
+
+
 
         bool AtualizarUsuario(Usuario usuario);
 
